@@ -30,10 +30,8 @@ public class Main {
   public static final int BASE_TEMPERATURE = 30;
   public static final int MAX_TEMPERATURE = 110;
   public static final int BASE_REVOLUTION = 500;
-  public static final int MAX_PRESSURE_REVOLUTION = 2000;
   public static final int MAX_REVOLUTION = 3000;
   public static final int MIN_STOP_REVOLUTION = 60;
-  public static final int BASE_PRESSURE = 2;
   public static final int MAX_PRESSURE = 6;
 
 
