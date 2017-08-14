@@ -20,18 +20,20 @@ public class Main {
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-  private static final String SERVER_URI = "tcp://localhost:30720";
+  private static final String SERVER_URI = "tcp://10.2.3.101:30720";
   private static final String CLIENT_ID = "mqtt-kp-client";
 
-  private static final String TOPIC = "kp1/appSensor.0.1/dcx_instance_1/7jtt2mzwJR/json/";
+  private static final String TOPIC = "kp1/engine-ver-1/dcx_instance_1/epToken/json/";
   public static final MqttKpClient client = new MqttKpClient(SERVER_URI, CLIENT_ID);
 
 
   public static final int BASE_TEMPERATURE = 30;
   public static final int MAX_TEMPERATURE = 110;
   public static final int BASE_REVOLUTION = 500;
+  public static final int MAX_PRESSURE_REVOLUTION = 2000;
   public static final int MAX_REVOLUTION = 3000;
   public static final int MIN_STOP_REVOLUTION = 60;
+  public static final int BASE_PRESSURE = 2;
   public static final int MAX_PRESSURE = 6;
 
 
@@ -76,8 +78,8 @@ public class Main {
     System.out.println("REVOLUTION = " + currentRevolution);
     System.out.println("Oil pressure = " + currentPressure);
     System.out.println("Temperature = " + currentTemperature);
-//    sleepForSeconds(1);
-    sleepForMillis(10);
+    sleepForSeconds(1);
+//    sleepForMillis(10);
   }
 
   @SneakyThrows
