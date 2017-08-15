@@ -37,7 +37,7 @@ public class Main {
   public static final int BASE_PRESSURE = 2;
   public static final int MAX_PRESSURE = 6;
 
-  public static final int PERIOD_MILLIS = 250;
+  public static final int PERIOD_MILLIS = 500;
   public static final double PERIOS_COEF = PERIOD_MILLIS / 1000.0;
 
   private static boolean working = false;
@@ -48,17 +48,6 @@ public class Main {
 
   @SneakyThrows
   public static void main(String[] args) {
-
-//    Scanner scanner = new Scanner(System.in);
-//    while (true) {
-//      generateAndSendMessage();
-//      if (scanner.hasNext()) {
-//        working = !working;
-//        System.out.println(String.format("=========%s=========", working ? "ON" : "OFF"));
-//      }
-//
-//    }
-
     while (true) {
 
       for (int i = 0; i < Math.round(10.0 / PERIOS_COEF); i++) {
@@ -90,7 +79,6 @@ public class Main {
     System.out.println("REVOLUTION = " + currentRevolution);
     System.out.println("Oil pressure = " + currentPressure);
     System.out.println("Temperature = " + currentTemperature);
-//    sleepForSeconds(PERIOD_MILLIS);
     sleepForMillis(PERIOD_MILLIS);
   }
 
@@ -121,10 +109,7 @@ public class Main {
         if (currentRevolution < BASE_REVOLUTION) {
           currentRevolution = BASE_REVOLUTION;
         }
-        currentRevolution = currentRevolution + PERIOS_COEF * currentRevolution * ThreadLocalRandom.current().nextDouble(0, 0.1);
-        if (currentRevolution > MAX_REVOLUTION) {
-          currentRevolution = ThreadLocalRandom.current().nextDouble(MAX_REVOLUTION - 9, MAX_REVOLUTION + 4);
-        }
+        currentRevolution = currentRevolution + PERIOS_COEF * currentRevolution * ThreadLocalRandom.current().nextDouble(0.1, 0.2);
       } else {
         currentRevolution = ThreadLocalRandom.current().nextDouble(MAX_REVOLUTION - 9, MAX_REVOLUTION + 4);
       }
@@ -134,7 +119,9 @@ public class Main {
       double newValue = (MAX_REVOLUTION - currentRevolution + 10) * revSpeedReductionCoef + ThreadLocalRandom.current().nextDouble(-1, 1) * revRandCoef;
       currentRevolution -= PERIOS_COEF * newValue;
       currentRevolution = (currentRevolution < MIN_STOP_REVOLUTION ? 0 : currentRevolution);
-//      currentRevolution = currentRevolution > MIN_STOP_REVOLUTION ? currentRevolution - newValue : 0;
+    }
+    if (currentRevolution > MAX_REVOLUTION) {
+      currentRevolution = ThreadLocalRandom.current().nextDouble(MAX_REVOLUTION - 9, MAX_REVOLUTION + 4);
     }
     return currentRevolution;
   }
@@ -154,22 +141,13 @@ public class Main {
   private static double genTemperature() {
     double temperatureRandomCoeff = 1.5;
     double tempCoeff = 7.0 / 3000;
-    double addValue = (currentRevolution - 1.5 * BASE_REVOLUTION) * tempCoeff + ThreadLocalRandom.current().nextDouble(-1, 1) * temperatureRandomCoeff;
+    double addValue = (currentRevolution - 1.5 * BASE_REVOLUTION) * tempCoeff + ThreadLocalRandom.current().nextDouble(-0.2, 0.2) * temperatureRandomCoeff;
     currentTemperature += PERIOS_COEF * addValue;
     if (currentTemperature > MAX_TEMPERATURE) {
-      currentTemperature = MAX_TEMPERATURE + ThreadLocalRandom.current().nextDouble(-1, 1) * temperatureRandomCoeff;
+      currentTemperature = MAX_TEMPERATURE + ThreadLocalRandom.current().nextDouble(-0.5, 0.5) * temperatureRandomCoeff;
     } else if (currentTemperature < BASE_TEMPERATURE) {
       currentTemperature = ThreadLocalRandom.current().nextDouble(BASE_TEMPERATURE - 0.1, BASE_TEMPERATURE + 0.1);
     }
-//      double newValue = BASE_TEMPERATURE + (MAX_TEMPERATURE - BASE_TEMPERATURE) * currentRevolution / MAX_REVOLUTION;
-//      if (currentRevolution < BASE_REVOLUTION - 10) {
-//        currentTemperature = newValue > currentTemperature
-//            ? ThreadLocalRandom.current().nextDouble(newValue, newValue + 2) - 10
-//            : ThreadLocalRandom.current().nextDouble(currentTemperature, currentTemperature + 2) - 10;
-//      } else {
-//        currentTemperature = ThreadLocalRandom.current().nextDouble(newValue - 1, newValue + 2);
-//      }
-//    }
     return currentTemperature;
   }
 
