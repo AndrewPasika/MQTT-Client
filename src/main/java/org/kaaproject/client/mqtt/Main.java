@@ -57,7 +57,7 @@ public class Main {
       System.out.println("=======ON=====");
 
       working = true;
-      for (int i = 0; i < Math.round(120.0 / PERIOS_COEF); i++) {
+      for (int i = 0; i < Math.round(60.0 / PERIOS_COEF); i++) {
         generateAndSendMessage();
       }
 
