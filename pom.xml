@@ -10,7 +10,7 @@
 
     <properties>
         <paho.client.version>1.1.1</paho.client.version>
-        <lombok.version>1.16.16</lombok.version>
+        <lombok.version>1.18.20</lombok.version>
         <apache.commons.lang3.version>3.5</apache.commons.lang3.version>
         <objectmapper.version>2.9.0</objectmapper.version>
     </properties>
